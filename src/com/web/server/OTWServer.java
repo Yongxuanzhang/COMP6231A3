@@ -23,14 +23,16 @@ public static void main(String args[]) throws SecurityException, IOException {
 	HashMap<String,Integer>value2=new HashMap<String,Integer>();
 	HashMap<String,Integer>value3=new HashMap<String,Integer>();
 	
-	value1.put("OTWA100619", 22);
+	value1.put("OTWE190617", 1);
+	/*
 	value1.put("OTWA100618", 23);
 	value1.put("OTWA100617", 25);
 	value1.put("OTWA070619", 25);
 	value1.put("OTWA080619", 25);
 	value1.put("OTWA090619", 25);
-	value2.put("OTWM110419", 23);
-	value3.put("OTWE090519", 26);
+	*/
+	value2.put("OTWE110417", 23);
+	value3.put("OTWE250617", 1);
 	OTWrecord.put("Conference", value1);
 	OTWrecord.put("TradeShows", value2);
 	OTWrecord.put("Seminars", value3);

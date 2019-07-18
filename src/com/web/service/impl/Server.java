@@ -811,17 +811,23 @@ public class Server implements WebInterface{
   
   public int checkCounts(String customerID,String eventID) {
     
-    LinkedList<String> userRecords = userSchedule.get(customerID);
+	  String schedule=this.getBookingSchedule(customerID);
+	  String scheduleList[]= schedule.split(" ");
+    //LinkedList<String> userRecords = userSchedule.get(customerID);
     String month =  eventID.substring(6, 8);
     String year = eventID.substring(8, 10);
+    String loc = customerID.substring(0,3);
     System.out.println("Month is"+month);
     int count = 0;
-    if(userRecords!=null) {
-    	  System.out.println("userRecords is"+userRecords);
-      for(String o:userRecords) {
-        String[] temp=o.split(" ");
-        System.out.println("Month of temp is"+temp[1]);
-        if(month.equals(temp[1].substring(6, 8))&&year.equals(temp[1].substring(8, 10))) {
+    if(!schedule.equals("    No schedule")) {
+    	  System.out.println("userRecords is"+schedule);
+      for(String o:scheduleList) {
+        //String[] temp=o.split(" ");
+    	  if(o.length()<6){
+    		  continue;
+    	  }
+        System.out.println("temp is"+o);
+        if((!loc.equals(eventID.substring(0,3)))&&month.equals(o.substring(6, 8))&&year.equals(o.substring(8, 10))) {
         	//MTLE100519
           count++;
         }
@@ -898,7 +904,7 @@ public class Server implements WebInterface{
 				
 
 			if(feedback==1) {
-			//	this.insertEvent(customerID, eventID, eventType);
+				//this.insertEvent(customerID, eventID, eventType);
 			}
 			System.out.println("feedback value "+feedback);
 			return feedback;
@@ -1001,7 +1007,8 @@ public class Server implements WebInterface{
 	            
 	            userSchedule.get(customerID).remove(eventType+" "+eventID);
 	            
-	            
+	          }}
+	        
 	            sendcancelRequest(eventID,customerID,eventType,requestPort1,"1");
 	            sendcancelRequest(eventID,customerID,eventType,requestPort2,"1");
 	            sendcancelRequest(eventID,customerID,eventType,requestPort1,"2");
@@ -1020,22 +1027,24 @@ public class Server implements WebInterface{
 	            }
 	            
 	            return true;
-	          }else {   
-	            return false;
 	          }
-
-	        }else {        
-	            return false;
-	        }
 	        
 	        
 
 	          //System.out.println("feedback value "+feedback);
 	         
-	      }
+	      
 	      
 		  if(cancelOther) {
 		    //only update capacity
+			  cancelOther=false;
+			  
+			   if(userSchedule.containsKey(customerID)) {
+			          if(userSchedule.get(customerID).contains(eventType+" "+eventID)){
+			            
+			            userSchedule.get(customerID).remove(eventType+" "+eventID);}}
+			  
+			  
 	        for (Map.Entry<String,HashMap<String,Integer>> entry : record.entrySet()) {
 	          
 	          for(Map.Entry<String,Integer> entry2 : entry.getValue().entrySet()) {
@@ -1247,6 +1256,8 @@ public class Server implements WebInterface{
 		this.receiveSchedule();
 		
 		//String[] receiveList1;
+		HashMap<String,String> tempRec =new HashMap<String,String>(); 
+		
 		
 		if(recSchedule1.length()>0) {
 			
@@ -1298,12 +1309,13 @@ public class Server implements WebInterface{
 
 		//System.out.println("before swap");
 		//check if the user has booked this event;
-		
+		int booknew=0;
 		if(res==1) {
 			
-			this.cancelEvent(oldEventID, oldEventType, customerID);
+			boolean cancelRes=this.cancelEvent(oldEventID, oldEventType, customerID);
+			System.out.println("cancel res"+cancelRes);
 			
-			int booknew=this.bookEvent(customerID, newEventID, newEventType);
+			booknew=this.bookEvent(customerID, newEventID, newEventType);
 			
 			if(booknew==1) {
 			//	System.out.println("after book in swap");
@@ -1321,7 +1333,7 @@ public class Server implements WebInterface{
 				
 				return booknew;
 			}
-		}else return -1;
+		}else return booknew;
 		
 	}
 	

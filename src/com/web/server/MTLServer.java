@@ -24,9 +24,9 @@ public static void main(String args[]) throws SecurityException, IOException {
 		HashMap<String,Integer>value1=new HashMap<String,Integer>();
 		HashMap<String,Integer>value2=new HashMap<String,Integer>();
 		HashMap<String,Integer>value3=new HashMap<String,Integer>();
-		value.put("MTLA100619", 2);
-		value2.put("MTLA100617", 3);
-		value3.put("MTLA100618", 1);
+		value.put("MTLE090617", 2);
+		value2.put("MTLE080617", 1);
+		value3.put("MTLE100617", 1);
 	
 		
 		MTLrecord.put("Conference", value);

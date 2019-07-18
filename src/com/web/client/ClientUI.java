@@ -34,13 +34,30 @@ public class ClientUI{
         this.userInfoStart();
     }
     
+    /*
+     * TORE080619
+     * TORE110619
+     * MTLA090619
+     * MTLA080619
+     * OTWA190619
+     * OTWA250619
+     * 
+     * Conference
+     * Seminars
+     * TradeShows
+     * 
+     */
+    
+    
+    
     private void userInfoStart() {
       //User data in client side.
-      userInfo.put("TORM6785", "123");
+      userInfo.put("TORM3456", "123");
       userInfo.put("MTLC2345", "123");
       userInfo.put("TORC1234", "123");
-      userInfo.put("MTLM9087", "123");
-      userInfo.put("OTWM4560", "123");
+      userInfo.put("MTLM9000", "123");
+      userInfo.put("OTWM6785", "123");
+      userInfo.put("OTWC1234", "123");
     }
 
   
@@ -211,8 +228,8 @@ public class ClientUI{
           		 return false;
               }
               else if(swapRes==-1) {
-          		System.out.println(ID+" doesn't book "+oldEventID);
-          		 userLog.logger.info(ID+" cannot swap "+oldEventID);
+            	  System.out.println(ID+" cannot book "+newEventID+ "from other cities more than 3 times 1 month"); 
+                  userLog.logger.info(ID+" cannot book "+newEventID+ "from other cities more than 3 times 1 month");
         		 return false;
           	}
            
@@ -487,7 +504,7 @@ public class ClientUI{
       case"TOR":
           try {
  
-   		    URL addURL = new URL("http://localhost:2004/TOR");
+   		    URL addURL = new URL("http://localhost:2004/tor");
 			QName addQName = new QName("http://impl.service.web.com/", "ServerService");
 			
 			Service addition = Service.create(addURL, addQName);

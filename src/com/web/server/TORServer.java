@@ -21,9 +21,9 @@ public static void main(String args[]) throws SecurityException, IOException {
 	HashMap<String,Integer>value2=new HashMap<String,Integer>();
 	HashMap<String,Integer>value3=new HashMap<String,Integer>();
 
-	value.put("TORA100519", 211);
-	value1.put("TORA100519", 111);
-	value2.put("TORA100519", 311);
+	value.put("TORA080617", 2);
+	value1.put("TORA080617", 2);
+	value2.put("TORA110617", 1);
 
 	TORrecord.put("Conference", value);
 	TORrecord.put("TradeShows", value1);
